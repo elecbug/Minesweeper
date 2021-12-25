@@ -29,12 +29,15 @@ namespace Minesweeper
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.MenuMain = new System.Windows.Forms.MenuStrip();
             this.파일ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.설정ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuNewGame = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuRuleSetting = new System.Windows.Forms.ToolStripMenuItem();
             this.PanlGameBoard = new System.Windows.Forms.Panel();
+            this.LabelTime = new System.Windows.Forms.Label();
+            this.Timer = new System.Windows.Forms.Timer(this.components);
             this.MenuMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -85,12 +88,27 @@ namespace Minesweeper
             this.PanlGameBoard.Size = new System.Drawing.Size(400, 400);
             this.PanlGameBoard.TabIndex = 1;
             // 
+            // LabelTime
+            // 
+            this.LabelTime.AutoSize = true;
+            this.LabelTime.Location = new System.Drawing.Point(12, 430);
+            this.LabelTime.Name = "LabelTime";
+            this.LabelTime.Size = new System.Drawing.Size(38, 12);
+            this.LabelTime.TabIndex = 2;
+            this.LabelTime.Text = "Timer";
+            // 
+            // Timer
+            // 
+            this.Timer.Interval = 1000;
+            this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(424, 581);
+            this.Controls.Add(this.LabelTime);
             this.Controls.Add(this.PanlGameBoard);
             this.Controls.Add(this.MenuMain);
             this.MainMenuStrip = this.MenuMain;
@@ -113,6 +131,8 @@ namespace Minesweeper
         private System.Windows.Forms.ToolStripMenuItem MenuNewGame;
         private System.Windows.Forms.ToolStripMenuItem MenuRuleSetting;
         private System.Windows.Forms.Panel PanlGameBoard;
+        private System.Windows.Forms.Label LabelTime;
+        private System.Windows.Forms.Timer Timer;
     }
 }
 

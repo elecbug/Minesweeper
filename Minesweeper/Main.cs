@@ -19,6 +19,7 @@ namespace Minesweeper
         private bool[,] map_click;
         private Button[,] map_buttons;
         private readonly int HIDE = -1;
+        private int time_secs;
 
         public Main()
         {
@@ -56,13 +57,6 @@ namespace Minesweeper
                     ShowHide();
                     MessageBox.Show("You touched bomb.\nTry again?", "Oops...", MessageBoxButtons.OK);
 
-                    for (int ix = 0; ix < size_x; ix++)
-                    {
-                        for (int iy = 0; iy < size_y; iy++)
-                        {
-                            map_buttons[ix, iy].Text = "";
-                        }
-                    }
                     MapDataSet(false);
                 }
                 else if (map_data[x, y] == 0)
@@ -97,13 +91,6 @@ namespace Minesweeper
 
         private void MenuNewGame_Click(object sender, EventArgs e)
         {
-            for (int ix = 0; ix < size_x; ix++)
-            {
-                for (int iy = 0; iy < size_y; iy++)
-                {
-                    map_buttons[ix, iy].Text = "";
-                }
-            }
             MapDataSet(false);
         }
 
@@ -112,6 +99,12 @@ namespace Minesweeper
             Class.main = this;
             RuleSetting set = new RuleSetting();
             set.Show();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            time_secs++;
+            LabelTime.Text = $"Time: {time_secs} secs...";
         }
 
         private void ClearCheak()
@@ -133,15 +126,9 @@ namespace Minesweeper
         Next:
             if (clear)
             {
+                Timer.Stop();
                 MessageBox.Show("You didn't touch bomb.\nTry again?", "Wow!", MessageBoxButtons.OK);
 
-                for (int ix = 0; ix < size_x; ix++)
-                {
-                    for (int iy = 0; iy < size_y; iy++)
-                    {
-                        map_buttons[ix, iy].Text = "";
-                    }
-                }
                 MapDataSet(false);
             }
         }
@@ -293,6 +280,8 @@ namespace Minesweeper
 
         private void MapDataSet(bool making_new_buttons)
         {
+            time_secs = 0;
+
             if (making_new_buttons)
             {
                 map_buttons = new Button[size_x, size_y];
@@ -322,7 +311,8 @@ namespace Minesweeper
                 for (int x = 0; x < size_x; x++)
                 {
                     map_buttons[x, y].BackColor = Color.White;
-
+                    map_buttons[x, y].Text = "";
+                    
                     if (map_data[x, y] != HIDE)
                     {
                         map_data[x, y] = NearHide(x, y);
@@ -340,6 +330,8 @@ namespace Minesweeper
                 }
                 Debug.Write("\n");
             }
+
+            Timer.Start();
         }
 
         private int NearHide(int x, int y)
