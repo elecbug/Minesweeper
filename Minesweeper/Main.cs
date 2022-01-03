@@ -52,23 +52,7 @@ namespace Minesweeper
         Break:
             if (e.Button == MouseButtons.Left && !map_maybe[x, y])
             {
-                if (map_data[x, y] == HIDE)
-                {
-                    ShowHide();
-                    MessageBox.Show("You touched bomb.\nTry again?", "Oops...", MessageBoxButtons.OK);
-
-                    MapDataSet(false);
-                }
-                else if (map_data[x, y] == 0)
-                {
-                    EraseEmpty(x, y);
-                }
-                else
-                {
-                    map_buttons[x, y].Text = map_data[x, y].ToString();
-                    map_buttons[x, y].BackColor = Color.YellowGreen;
-                    map_click[x, y] = true;
-                }
+                MouseNomalClick(x, y);
             }
             else if (e.Button == MouseButtons.Right && !map_click[x, y])
             {
@@ -103,8 +87,7 @@ namespace Minesweeper
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            time_secs++;
-            LabelTime.Text = $"Time: {time_secs} secs...";
+            LabelTime.Text = $"Time: {TimeToString(time_secs++)}";
         }
 
         private void ClearCheak()
@@ -412,6 +395,45 @@ namespace Minesweeper
                         map_buttons[x, y].BackColor = Color.Red;
                     }
                 }
+            }
+        }
+
+        private string TimeToString(int time_secs)
+        {
+            if (time_secs < 60)
+            {
+                return $"{time_secs} s...";
+            }
+            else if (time_secs / 60 < 60)
+            {
+                return $"{time_secs / 60}m {time_secs % 60}s...";
+            }
+            else
+            {
+                return $"{time_secs / 60 / 60}h {time_secs / 60 % 60}m {time_secs % 60}s...";
+            }
+        }
+
+        private void MouseNomalClick(int x, int y)
+        {
+            if (map_data[x, y] == HIDE)
+            {
+                ShowHide();
+                Timer.Stop();
+
+                MessageBox.Show("You touched bomb.\nTry again?", "Oops...", MessageBoxButtons.OK);
+
+                MapDataSet(false);
+            }
+            else if (map_data[x, y] == 0)
+            {
+                EraseEmpty(x, y);
+            }
+            else
+            {
+                map_buttons[x, y].Text = map_data[x, y].ToString();
+                map_buttons[x, y].BackColor = Color.YellowGreen;
+                map_click[x, y] = true;
             }
         }
 
