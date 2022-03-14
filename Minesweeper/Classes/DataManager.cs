@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Minesweeper
 {
-    class Class
+    internal class DataManager
     {
-        public static Main main;
+        public static MainForm main;
     }
 }
