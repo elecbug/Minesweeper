@@ -21,19 +21,33 @@ namespace Minesweeper
         private readonly int HIDE = -1;
         private int time_secs;
         private bool not_click_yet;
+        private DateTime game_start;
 
         public MainForm()
         {
             InitializeComponent();
         }
 
+        public DateTime GameStart { get => game_start; set => game_start = value; }
+
+        public int SizeX { get => size_x; set => size_x = value; }
+        public int SizeY { get => size_y; set => size_y = value; }
+        public int Bombs { get => hide_num; set => hide_num = value; }
+
         private void Load_Minesweeper(object sender, EventArgs e)
         {
-            size_x = 10;
-            size_y = 10;
-            hide_num = 10;
+            DataManager.main = this;
+
+            game_start = DateTime.Now;
+
+            new DB().ReadLine();
 
             Set_map_data();
+        }
+
+        private void FormClosed_MainForm(object sender, FormClosedEventArgs e)
+        {
+            new DB().WriteLine(false, false);
         }
 
         private void Click_menu_new(object sender, EventArgs e)
@@ -43,9 +57,37 @@ namespace Minesweeper
 
         private void Click_menu_rule(object sender, EventArgs e)
         {
-            DataManager.main = this;
             RuleForm set = new RuleForm();
             set.Show();
+        }
+
+        private void Click_menu_log_rank(object sender, EventArgs e)
+        {
+            List<Rank> ranks = new DB().Create_RankList();
+
+            for (int i = 0; i < ranks.Count; i++)
+            {
+                if ((!ranks[i].IsWin)
+                   || ranks[i].Width != size_x
+                   || ranks[i].Height != size_y
+                   || ranks[i].Bombs != hide_num)
+                {
+                    ranks.RemoveAt(i--);
+                }
+            }
+
+            ranks.Sort((x, y) => x.Sec.CompareTo(y.Sec));
+
+            label_ranks.Text = $"Rank: ({size_x}, {size_y}) {hide_num} bombs\r\n";
+            for (int i = 0; i < Math.Min(20, ranks.Count); i++)
+            {
+                label_ranks.Text += $"{i+1,2}: {To_String(ranks[i].Sec)} on {ranks[i].Day}\r\n";
+            } 
+        }
+
+        private void Click_menu_log_playtime(object sender, EventArgs e)
+        {
+            label_playtime.Text = $"Erenow: {To_String(new DB().GetPlayTime())}";
         }
 
         private void Click_map_buttons(object sender, MouseEventArgs e)
@@ -98,6 +140,8 @@ namespace Minesweeper
 
                     return;
                 }
+
+                new DB().WriteLine(false, true, time_secs);
 
                 Show_Hide();
                 timer.Stop();
@@ -322,21 +366,21 @@ namespace Minesweeper
         {
             if (time_secs < 60)
             {
-                return $"{time_secs} s...";
+                return $"{time_secs} s";
             }
             else if (time_secs / 60 < 60)
             {
-                return $"{time_secs / 60}m {time_secs % 60}s...";
+                return $"{time_secs / 60}m {time_secs % 60}s";
             }
             else
             {
-                return $"{time_secs / 60 / 60}h {time_secs / 60 % 60}m {time_secs % 60}s...";
+                return $"{time_secs / 60 / 60}h {time_secs / 60 % 60}m {time_secs % 60}s";
             }
         }
 
         private void Tick_timer(object sender, EventArgs e)
         {
-            label_timer.Text = $"Time: {To_String(time_secs++)}";
+            label_timer.Text = $"Time: {To_String(time_secs++)}...";
         }
 
         private void Cheak_Clear()
@@ -358,6 +402,8 @@ namespace Minesweeper
         Next:
             if (clear)
             {
+                new DB().WriteLine(true, false, time_secs);
+
                 timer.Stop();
                 MessageBox.Show("You didn't touch bomb.\nTry again?", "Wow!", MessageBoxButtons.OK);
 

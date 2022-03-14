@@ -17,12 +17,12 @@ namespace Minesweeper
             InitializeComponent();
         }
 
-        private void Load_RuleSetting(object sender, EventArgs e)
+        private void Load_RuleForm(object sender, EventArgs e)
         {
             DataManager.main.Hide();
         }
 
-        private void FormClosed_RuleSetting(object sender, FormClosedEventArgs e)
+        private void FormClosed_RuleForm(object sender, FormClosedEventArgs e)
         {
             DataManager.main.Show();
         }
@@ -37,6 +37,11 @@ namespace Minesweeper
                 }
 
                 DataManager.main.Set_Values(int.Parse(text_width.Text), int.Parse(text_height.Text), int.Parse(text_bombs.Text));
+                DataManager.main.SizeX = int.Parse(text_width.Text);
+                DataManager.main.SizeY = int.Parse(text_height.Text);
+                DataManager.main.Bombs = int.Parse(text_bombs.Text);
+
+                new DB().WriteLine(false, false);
 
                 this.Close();
             }

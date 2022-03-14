@@ -127,8 +127,8 @@ namespace Minesweeper
             this.Controls.Add(this.label1);
             this.MaximizeBox = false;
             this.Name = "RuleSetting";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormClosed_RuleSetting);
-            this.Load += new System.EventHandler(this.Load_RuleSetting);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormClosed_RuleForm);
+            this.Load += new System.EventHandler(this.Load_RuleForm);
             this.ResumeLayout(false);
             this.PerformLayout();
 

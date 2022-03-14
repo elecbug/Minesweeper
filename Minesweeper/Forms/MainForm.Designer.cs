@@ -33,9 +33,14 @@ namespace Minesweeper
             this.menu = new System.Windows.Forms.MenuStrip();
             this.menu_new = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_rule = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_log = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_log_rank = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_log_playtime = new System.Windows.Forms.ToolStripMenuItem();
             this.panel_gameboard = new System.Windows.Forms.Panel();
             this.label_timer = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.label_ranks = new System.Windows.Forms.Label();
+            this.label_playtime = new System.Windows.Forms.Label();
             this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,7 +48,8 @@ namespace Minesweeper
             // 
             this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menu_new,
-            this.menu_rule});
+            this.menu_rule,
+            this.menu_log});
             this.menu.Location = new System.Drawing.Point(0, 0);
             this.menu.Name = "menu";
             this.menu.Size = new System.Drawing.Size(424, 24);
@@ -63,6 +69,29 @@ namespace Minesweeper
             this.menu_rule.Size = new System.Drawing.Size(42, 20);
             this.menu_rule.Text = "Rule";
             this.menu_rule.Click += new System.EventHandler(this.Click_menu_rule);
+            // 
+            // menu_log
+            // 
+            this.menu_log.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menu_log_rank,
+            this.menu_log_playtime});
+            this.menu_log.Name = "menu_log";
+            this.menu_log.Size = new System.Drawing.Size(39, 20);
+            this.menu_log.Text = "Log";
+            // 
+            // menu_log_rank
+            // 
+            this.menu_log_rank.Name = "menu_log_rank";
+            this.menu_log_rank.Size = new System.Drawing.Size(180, 22);
+            this.menu_log_rank.Text = "Load Rank";
+            this.menu_log_rank.Click += new System.EventHandler(this.Click_menu_log_rank);
+            // 
+            // menu_log_playtime
+            // 
+            this.menu_log_playtime.Name = "menu_log_playtime";
+            this.menu_log_playtime.Size = new System.Drawing.Size(180, 22);
+            this.menu_log_playtime.Text = "Play Time";
+            this.menu_log_playtime.Click += new System.EventHandler(this.Click_menu_log_playtime);
             // 
             // panel_gameboard
             // 
@@ -85,19 +114,39 @@ namespace Minesweeper
             this.timer.Interval = 1000;
             this.timer.Tick += new System.EventHandler(this.Tick_timer);
             // 
-            // Main
+            // label_ranks
+            // 
+            this.label_ranks.AutoSize = true;
+            this.label_ranks.Location = new System.Drawing.Point(152, 430);
+            this.label_ranks.Name = "label_ranks";
+            this.label_ranks.Size = new System.Drawing.Size(37, 12);
+            this.label_ranks.TabIndex = 3;
+            this.label_ranks.Text = "Rank:";
+            // 
+            // label_playtime
+            // 
+            this.label_playtime.AutoSize = true;
+            this.label_playtime.Location = new System.Drawing.Point(12, 442);
+            this.label_playtime.Name = "label_playtime";
+            this.label_playtime.Size = new System.Drawing.Size(0, 12);
+            this.label_playtime.TabIndex = 4;
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(424, 581);
+            this.Controls.Add(this.label_playtime);
+            this.Controls.Add(this.label_ranks);
             this.Controls.Add(this.label_timer);
             this.Controls.Add(this.panel_gameboard);
             this.Controls.Add(this.menu);
             this.MainMenuStrip = this.menu;
             this.MaximizeBox = false;
-            this.Name = "Main";
+            this.Name = "MainForm";
             this.Text = "Bombs";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormClosed_MainForm);
             this.Load += new System.EventHandler(this.Load_Minesweeper);
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();
@@ -114,6 +163,11 @@ namespace Minesweeper
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.ToolStripMenuItem menu_new;
         private System.Windows.Forms.ToolStripMenuItem menu_rule;
+        private System.Windows.Forms.ToolStripMenuItem menu_log;
+        private System.Windows.Forms.ToolStripMenuItem menu_log_rank;
+        private System.Windows.Forms.ToolStripMenuItem menu_log_playtime;
+        private System.Windows.Forms.Label label_ranks;
+        private System.Windows.Forms.Label label_playtime;
     }
 }
 
