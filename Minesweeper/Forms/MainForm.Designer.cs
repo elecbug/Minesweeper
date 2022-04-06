@@ -82,14 +82,14 @@ namespace Minesweeper
             // menu_log_rank
             // 
             this.menu_log_rank.Name = "menu_log_rank";
-            this.menu_log_rank.Size = new System.Drawing.Size(180, 22);
+            this.menu_log_rank.Size = new System.Drawing.Size(130, 22);
             this.menu_log_rank.Text = "Load Rank";
             this.menu_log_rank.Click += new System.EventHandler(this.Click_menu_log_rank);
             // 
             // menu_log_playtime
             // 
             this.menu_log_playtime.Name = "menu_log_playtime";
-            this.menu_log_playtime.Size = new System.Drawing.Size(180, 22);
+            this.menu_log_playtime.Size = new System.Drawing.Size(130, 22);
             this.menu_log_playtime.Text = "Play Time";
             this.menu_log_playtime.Click += new System.EventHandler(this.Click_menu_log_playtime);
             // 
@@ -135,7 +135,6 @@ namespace Minesweeper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(424, 581);
             this.Controls.Add(this.label_playtime);
             this.Controls.Add(this.label_ranks);
@@ -143,11 +142,11 @@ namespace Minesweeper
             this.Controls.Add(this.panel_gameboard);
             this.Controls.Add(this.menu);
             this.MainMenuStrip = this.menu;
-            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "Bombs";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormClosed_MainForm);
             this.Load += new System.EventHandler(this.Load_Minesweeper);
+            this.SizeChanged += new System.EventHandler(this.SizeChanged_MainForm);
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();
             this.ResumeLayout(false);

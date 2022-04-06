@@ -43,6 +43,8 @@ namespace Minesweeper
             new DB().ReadLine();
 
             Set_map_data();
+
+            SizeChanged_MainForm(this, e);
         }
 
         private void FormClosed_MainForm(object sender, FormClosedEventArgs e)
@@ -381,6 +383,29 @@ namespace Minesweeper
         private void Tick_timer(object sender, EventArgs e)
         {
             label_timer.Text = $"Time: {To_String(time_secs++)}...";
+        }
+
+        private void SizeChanged_MainForm(object sender, EventArgs e)
+        {
+            this.panel_gameboard.Location = new Point(10, this.menu.Height + 5);
+            this.panel_gameboard.Size
+                = new Size(this.ClientSize.Width - 20, this.ClientSize.Width - 20);
+            this.label_timer.Location
+                = new Point(10, this.panel_gameboard.Location.Y + this.panel_gameboard.Height + 5);
+            this.label_playtime.Location
+                = new Point(10, this.label_timer.Location.Y + this.label_timer.Height);
+            this.label_ranks.Location
+                = new Point(this.ClientSize.Width / 2, this.label_timer.Location.Y);
+
+            int button_size = this.panel_gameboard.Width / this.size_x;
+            for (int x = 0; x < this.size_x; x++)
+            {
+                for (int y = 0; y < this.size_y; y++)
+                {
+                    this.map_buttons[x, y].Location = new Point(x * button_size, y * button_size);
+                    this.map_buttons[x, y].Size = new Size(button_size, button_size);
+                }
+            }
         }
 
         private void Cheak_Clear()
