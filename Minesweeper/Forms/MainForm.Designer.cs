@@ -135,6 +135,7 @@ namespace Minesweeper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(424, 581);
             this.Controls.Add(this.label_playtime);
             this.Controls.Add(this.label_ranks);
@@ -146,7 +147,7 @@ namespace Minesweeper
             this.Text = "Bombs";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormClosed_MainForm);
             this.Load += new System.EventHandler(this.Load_Minesweeper);
-            this.SizeChanged += new System.EventHandler(this.SizeChanged_MainForm);
+            this.ResizeEnd += new System.EventHandler(this.SizeChanged_MainForm);
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();
             this.ResumeLayout(false);
