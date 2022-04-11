@@ -44,7 +44,7 @@ namespace Minesweeper
 
             Set_map_data();
 
-            SizeChanged_MainForm(this, e);
+            ResizeEnd_MainForm(this, e);
         }
 
         private void FormClosed_MainForm(object sender, FormClosedEventArgs e)
@@ -385,7 +385,7 @@ namespace Minesweeper
             label_timer.Text = $"Time: {To_String(time_secs++)}...";
         }
 
-        private void SizeChanged_MainForm(object sender, EventArgs e)
+        private void ResizeEnd_MainForm(object sender, EventArgs e)
         {
             this.panel_gameboard.Location = new Point(10, this.menu.Height + 5);
             this.panel_gameboard.Size

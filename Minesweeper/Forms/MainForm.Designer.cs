@@ -147,7 +147,7 @@ namespace Minesweeper
             this.Text = "Bombs";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormClosed_MainForm);
             this.Load += new System.EventHandler(this.Load_Minesweeper);
-            this.ResizeEnd += new System.EventHandler(this.SizeChanged_MainForm);
+            this.ResizeEnd += new System.EventHandler(this.ResizeEnd_MainForm);
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();
             this.ResumeLayout(false);
